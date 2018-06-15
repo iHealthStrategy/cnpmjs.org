@@ -63,9 +63,7 @@ var config = {
   // default system admins
   admins: {
     // name: email
-    fengmk2: 'fengmk2@gmail.com',
-    admin: 'admin@cnpmjs.org',
-    dead_horse: 'dead_horse@qq.com',
+    admin: 'admin@ihealthlabs.com.cn',
   },
 
   // email notification for errors
@@ -81,7 +79,7 @@ var config = {
     }
   },
 
-  logoURL: 'https://os.alipayobjects.com/rmsportal/oygxuIUkkrRccUz.jpg', // cnpm logo image url
+  logoURL: 'https://ca0cm30uzh03yhb8b41bu5n1-wpengine.netdna-ssl.com/wp-content/uploads/iHealth-logo-primary@0.5x.png', // cnpm logo image url
   adBanner: '',
   customReadmeFile: '', // you can use your custom readme file instead the cnpm one
   customFooter: '', // you can add copyright and site total script html here
@@ -98,7 +96,7 @@ var config = {
    */
 
   database: {
-    db: 'cnpmjs_test',
+    db: 'cnpmjs',
     username: 'root',
     password: '',
 
@@ -147,7 +145,7 @@ var config = {
   enablePrivate: false,
 
   // registry scopes, if don't set, means do not support scopes
-  scopes: [ '@cnpm', '@cnpmtest', '@cnpm-test' ],
+  scopes: [ '@ihealth' ],
 
   // some registry already have some private packages in global scope
   // but we want to treat them as scoped private packages,
@@ -181,11 +179,11 @@ var config = {
   // none: do not sync any module, proxy all public modules from sourceNpmRegistry
   // exist: only sync exist modules
   // all: sync all modules
-  syncModel: 'none', // 'none', 'all', 'exist'
+  syncModel: 'exist', // 'none', 'all', 'exist'
 
   syncConcurrency: 1,
   // sync interval, default is 10 minutes
-  syncInterval: '10m',
+  syncInterval: '60m',
 
   // sync polular modules, default to false
   // because cnpm can't auto sync tag change for now
@@ -196,7 +194,7 @@ var config = {
   topPopular: 100,
 
   // sync devDependencies or not, default is false
-  syncDevDependencies: false,
+  syncDevDependencies: true,
 
   // changes streaming sync
   syncChangesStream: false,
@@ -204,7 +202,7 @@ var config = {
 
   // badge subject on http://shields.io/
   badgePrefixURL: 'https://img.shields.io/badge',
-  badgeSubject: 'cnpm',
+  badgeSubject: 'ihealth',
 
   // custom user service, @see https://github.com/cnpm/cnpmjs.org/wiki/Use-Your-Own-User-Authorization
   // when you not intend to ingegrate with your company's user system, then use null, it would
