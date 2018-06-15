@@ -1,0 +1,63 @@
+clone:
+  git:
+    image: plugins/git
+    depth: 1
+pipeline:
+  build:
+    image: plugins/docker
+    username: ihealth
+    password: iHealthStrategy2018
+    registry: harbor.ihealthcn.com
+    repo: harbor.ihealthcn.com/npm-registry/npm-registry
+    mirror: 'https://registry.docker-cn.com'
+    tag:
+      - '${DRONE_BUILD_NUMBER}'
+      - latest
+    dockerfile: Dockerfile
+    when:
+      branch: master
+      event: push
+  deploy:
+    image: peloton/drone-rancher
+    url: 'http://rancher.ihealthcn.com/v2-beta/projects/1a870'
+    access_key: BF6F40A6CD78C0928667
+    secret_key: h8TMG5zWYW7TWFd2YmznvRZA5HQZtsvsetCBu4w8
+    service: internal-applications/npm-registry
+    docker_image: 'harbor.ihealthcn.com/npm-registry/npm-registry:latest'
+    batch_size: 1
+    timeout: 600
+    confirm: true
+    when:
+      branch: develop
+      event: push
+  report_success:
+    image: clem109/drone-wechat
+    secrets:
+      - plugin_corp_secret
+      - plugin_corpid
+      - plugin_agent_id
+    title: '${DRONE_REPO_NAME}'
+    description: |
+      构建序列: internal npm registry ${DRONE_BUILD_NUMBER} 部署成功 ！
+      更新内容: ${DRONE_COMMIT_MESSAGE}
+    msg_url: 'http://npm.ihealthcn.com'
+    btn_txt: 查看运行状况
+    when:
+      branch: develop
+      status:
+        - success
+  report_failure:
+    image: clem109/drone-wechat
+    secrets:
+      - plugin_corp_secret
+      - plugin_corpid
+      - plugin_agent_id
+    title: '${DRONE_REPO_NAME}'
+    description: |
+      构建序列: internal npm registry ${DRONE_BUILD_NUMBER} 部署失败，点击卡片查询详细信息。
+    msg_url: '${DRONE_BUILD_LINK}'
+    btn_txt: 查看详情
+    when:
+      branch: develop
+      status:
+        - failure
